@@ -40,7 +40,7 @@ function Baje() {
 
     try {
       // Updated backend API URL here:
-      const response = await axios.post('`${apiUrl}/ask', { 
+      const response = await axios.post(`${apiUrl}/ask`, { 
         prompt: inputValue 
       }, {
         headers: {
