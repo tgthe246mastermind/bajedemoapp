@@ -18,6 +18,10 @@ function Baje() {
   const [isNavOpen, setIsNavOpen] = useState(false);
   const navigate = useNavigate();
 
+  // Get API URL from environment variable
+  const apiUrl = import.meta.env.VITE_API_URL;
+
+
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages]);
@@ -36,7 +40,7 @@ function Baje() {
 
     try {
       // Updated backend API URL here:
-      const response = await axios.post('https://baje-backend.theirrygittensmouri.workers.dev/ask', { 
+      const response = await axios.post('`${apiUrl}/ask', { 
         prompt: inputValue 
       }, {
         headers: {
