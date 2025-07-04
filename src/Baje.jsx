@@ -35,7 +35,8 @@ function Baje() {
     setIsLoading(true);
 
     try {
-      const response = await axios.post('http://localhost:3000/ask', { 
+      // Updated backend API URL here:
+      const response = await axios.post('https://baje-backend.theirrygittensmouri.workers.dev/ask', { 
         prompt: inputValue 
       }, {
         headers: {
