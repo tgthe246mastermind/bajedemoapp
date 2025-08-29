@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { createClient } from '@supabase/supabase-js';
-import isleImage from '../isle4.png';
 
 const supabase = createClient(
   'https://lgurtucciqvwgjaphdqp.supabase.co',
@@ -9,10 +8,6 @@ const supabase = createClient(
 );
 
 const styles = {
-  body: {
-    background: 'black',
-    display: "flex",
-  },
   mainContainer: {
     position: "relative",
     width: "700px",
@@ -33,7 +28,6 @@ const styles = {
     justifyContent: "center",
     width: "100%",
     padding: "20px 30px",
-    marginBottom: "5px",
   },
   logo: {
     fontSize: "30px",
@@ -45,7 +39,7 @@ const styles = {
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
-    marginTop: "5px",
+    marginTop: "50px",
   },
   inputGroup: {
     width: "100%",
@@ -77,31 +71,6 @@ const styles = {
     fontWeight: "700",
     cursor: "pointer",
     transition: "background 0.3s ease",
-    marginBottom: "10px",
-    marginLeft: "20px",
-  },
-  googleButton: {
-    width: "100%",
-    height: "50px",
-    background: "#4285F4",
-    border: "none",
-    borderRadius: "4px",
-    color: "white",
-    fontSize: "16px",
-    fontWeight: "500",
-    cursor: "pointer",
-    transition: "background 0.3s ease",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    gap: "10px",
-    boxShadow: "0 2px 4px rgba(0, 0, 0, 0.2)",
-    padding: "0 15px",
-    marginLeft: "20px",
-  },
-  googleLogo: {
-    width: "18px",
-    height: "18px",
   },
   signupLink: {
     marginTop: "20px",
@@ -132,8 +101,9 @@ const Login = () => {
     setIsLoading(true);
 
     try {
-      const { data: { session }, error } = await supabase.auth.signInWithPassword({
-        email: username,
+      // Attempt to sign in with Supabase
+      const { data, error } = await supabase.auth.signInWithPassword({
+        email: username, // Assuming username is an email
         password,
       });
 
@@ -141,99 +111,21 @@ const Login = () => {
         throw error;
       }
 
-      if (session?.user) {
-        const { data: userData, error: userError } = await supabase.auth.getUser();
-        if (userError) {
-          throw userError;
-        }
-
-        const isFirstTimeUser = userData?.user?.user_metadata?.isFirstTimeUser ?? false;
-
-        if (isFirstTimeUser) {
-          navigate('/onboarding');
-        } else {
-          navigate('/baje');
-        }
-      } else {
-        throw new Error('No user session found');
+      if (data.user) {
+        // Successful login, redirect to Baje
+        navigate('/baje');
       }
     } catch (error) {
       setError(error.message || 'Invalid login credentials');
-      console.error('Login error:', error);
     } finally {
       setIsLoading(false);
     }
   };
-
-  const handleGoogleLogin = async () => {
-    setError(null);
-    setIsLoading(true);
-
-    try {
-      const { error } = await supabase.auth.signInWithOAuth({
-        provider: 'google',
-        options: {
-          redirectTo: `${window.location.origin}/login`,
-        },
-      });
-
-      if (error) {
-        throw error;
-      }
-    } catch (error) {
-      setError(error.message || 'Google login failed');
-      console.error('Google login error:', error);
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    async function checkUserAfterRedirect() {
-      const { data: { session }, error: sessionError } = await supabase.auth.getSession();
-      if (sessionError) {
-        console.error('Session error:', sessionError);
-        return;
-      }
-
-      const url = new URL(window.location.href);
-      const isRecovery = url.hash.includes('type=recovery');
-
-      if (session?.user && !isRecovery) {
-        const { data: userData, error: userError } = await supabase.auth.getUser();
-        if (userError) {
-          console.error('User data error:', userError);
-          return;
-        }
-
-        const isFirstTimeUser = userData?.user?.user_metadata?.isFirstTimeUser ?? false;
-        if (isFirstTimeUser) {
-          navigate('/onboarding');
-        } else {
-          navigate('/baje');
-        }
-      } else if (isRecovery) {
-        navigate('/reset-password');
-      }
-    }
-
-    checkUserAfterRedirect();
-  }, [navigate]);
 
   return (
     <div style={styles.mainContainer}>
       <div style={styles.loginHeader}>
-        <div style={styles.logo}>
-          <div style={{ 
-            display: 'flex', 
-            justifyContent: 'center', 
-            alignItems: 'center', 
-            height: '20vh',
-            marginBottom: '-30px' 
-          }}>
-            <img src={isleImage} alt="Isle" style={{ maxWidth: '100%', height: '70%' }} />
-          </div>
-        </div>
+        <div style={styles.logo}>BAJE</div>
       </div>
       
       <form style={styles.loginForm} onSubmit={handleSubmit}>
@@ -247,7 +139,6 @@ const Login = () => {
             value={username}
             onChange={(e) => setUsername(e.target.value)}
             required
-            disabled={isLoading}
           />
         </div>
         
@@ -261,7 +152,6 @@ const Login = () => {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
-            disabled={isLoading}
           />
         </div>
         
@@ -277,31 +167,10 @@ const Login = () => {
         >
           {isLoading ? 'Logging in...' : 'Login'}
         </button>
-
-        <button
-          type="button"
-          style={{
-            ...styles.googleButton,
-            ...(isLoading ? { opacity: 0.6, cursor: 'not-allowed' } : {})
-          }}
-          onClick={handleGoogleLogin}
-          disabled={isLoading}
-        >
-          <img
-            src="https://www.google.com/favicon.ico"
-            alt="Google logo"
-            style={styles.googleLogo}
-          />
-          {isLoading ? 'Processing...' : 'Sign in with Google'}
-        </button>
         
         <div style={styles.signupLink}>
           Don’t have an account?
           <Link to="/signup" style={styles.signupLinkA}>Sign Up</Link>
-        </div>
-        <div style={styles.signupLink}>
-          Forgot your password?
-          <Link to="/forgot-password" style={styles.signupLinkA}>Reset Password</Link>
         </div>
       </form>
     </div>
