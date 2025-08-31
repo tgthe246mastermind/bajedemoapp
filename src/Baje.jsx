@@ -129,19 +129,7 @@ function Baje() {
             </div>
           </div>
         </div>
-        <div className="header-buttons">
-          <button className="notification-button" onClick={() => navigate('/notifications')}>
-            🔔
-          </button>
-          <button
-            className={`hamburger-button ${isNavOpen ? 'active' : ''}`}
-            onClick={toggleNav}
-          >
-            <span className="hamburger-button-span"></span>
-            <span className="hamburger-button-span"></span>
-            <span className="hamburger-button-span"></span>
-          </button>
-        </div>
+       
       </div>
 
       <div className={`nav-overlay ${isNavOpen ? 'active' : ''}`}>
