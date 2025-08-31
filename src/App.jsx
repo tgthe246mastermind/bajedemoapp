@@ -1,5 +1,4 @@
 import { Routes, Route, useNavigate } from 'react-router-dom';
-import { TourProvider } from '@reactour/tour';
 import { createClient } from '@supabase/supabase-js';
 import { useEffect } from "react";
 import Signup1 from './Signup1.jsx';
@@ -79,12 +78,7 @@ function App() {
   };
 
   return (
-    <TourProvider
-      steps={tourSteps}
-      onClose={handleTourClose}
-      afterOpen={() => console.log('Tour opened at', new Date().toISOString())}
-      showSkipButton={false} // Disable the skip button
-    >
+   
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/signup" element={<Signup1 />} />
@@ -109,7 +103,7 @@ function App() {
         <Route path="/loadscreen" element={<Loadscreen />} />
         <Route path="*" element={<div>Page Not Found</div>} />
       </Routes>
-    </TourProvider>
+   
   );
 }
 
