@@ -1,27 +1,9 @@
 import { Routes, Route, useNavigate } from 'react-router-dom';
 import { createClient } from '@supabase/supabase-js';
 import { useEffect } from "react";
-import Signup1 from './SignUp1.jsx';
+
 import Baje from './Baje.jsx';
-import BajeTour from './BajeTour.jsx';
-import Login from './Login.jsx';
-import Home from './Home.jsx';
-import Dashboard from './Dashboard.jsx';
-import HelpPage from './FAQ.jsx';
-import Packages from './Packages.jsx';
-import Profile from './Profile.jsx';
-import ReportIssue from './ReportIssue.jsx';
-import SavedChat from './SavedChat.jsx';
-import Settings from './Settings.jsx';
-import Workbench from './Workbench.jsx';
-import Notifications from './Notifications.jsx';
-import PaymentCard from './PaymentCard.jsx';
-import Onboarding from './Onboarding.jsx';
-import Paywall from './PaymentWall.jsx';
-import ForgotPassword from './ForgotPassword.jsx';
-import ResetPassword from './ResetPassword.jsx';
-import AdminSendNotification from './AdminSendNotification.jsx';
-import Loadscreen from './Loadscreen.jsx';
+
 
 const supabase = createClient(
   "https://lgurtucciqvwgjaphdqp.supabase.co",
