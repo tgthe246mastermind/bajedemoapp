@@ -1,7 +1,7 @@
 import { Routes, Route, useNavigate } from 'react-router-dom';
 import { createClient } from '@supabase/supabase-js';
 import { useEffect } from "react";
-import Signup1 from './Signup1.jsx';
+import Signup1 from './SignUp1.jsx';
 import Baje from './Baje.jsx';
 import BajeTour from './BajeTour.jsx';
 import Login from './Login.jsx';
