@@ -44,24 +44,6 @@ function useAuthRefresh() {
   }, [navigate]);
 }
 
-const tourSteps = [
-  {
-    selector: '.chat-header',
-    content: 'This is the chat header where you can see the app title and navigation options.',
-  },
-  {
-    selector: '.hamburger-button',
-    content: 'Click here to open the navigation menu.',
-  },
-  {
-    selector: '.barbados-flag',
-    content: 'Select a Caribbean country to explore!',
-  },
-  {
-    selector: '.input-section',
-    content: 'Type your questions here to interact with the guide.',
-  },
-];
 
 function App() {
   const navigate = useNavigate();
@@ -69,39 +51,13 @@ function App() {
   // Integrate global session refresh
   useAuthRefresh();
 
-  // Debug navigation
-  const handleTourClose = () => {
-    console.log('TourProvider onClose triggered at', new Date().toISOString());
-    console.log('Navigating to /baje');
-    localStorage.setItem('hasTakenTour', 'true');
-    navigate('/baje', { replace: true }); // Use replace to avoid adding to history stack
-  };
+/
 
   return (
    
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/signup" element={<Signup1 />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/baje" element={<Baje />} />
-        <Route path="/baje-tour" element={<BajeTour />} />
-        <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/help" element={<HelpPage />} />
-        <Route path="/packages" element={<Packages />} />
-        <Route path="/profile" element={<Profile />} />
-        <Route path="/report" element={<ReportIssue />} />
-        <Route path="/saved-chats" element={<SavedChat />} />
-        <Route path="/settings" element={<Settings />} />
-        <Route path="/workbench" element={<Workbench />} />
-        <Route path="/payment-card" element={<PaymentCard />} />
-        <Route path="/onboarding" element={<Onboarding />} />
-        <Route path="/paywall" element={<Paywall />} />
-        <Route path="/notifications" element={<Notifications />} />
-        <Route path="/admin" element={<AdminSendNotification />} />
-        <Route path="/forgot-password" element={<ForgotPassword />} />
-        <Route path="/reset-password" element={<ResetPassword />} />
-        <Route path="/loadscreen" element={<Loadscreen />} />
-        <Route path="*" element={<div>Page Not Found</div>} />
+        <Route path="/" element={<Baje />} />
+       
       </Routes>
    
   );
