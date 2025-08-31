@@ -1,6 +1,6 @@
 import { Routes, Route, useNavigate } from 'react-router-dom';
 
-import { useEffect } from "react";
+
 
 import Baje from './Baje.jsx';
 
