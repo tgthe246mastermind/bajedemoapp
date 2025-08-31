@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 
 const styles = {
@@ -31,6 +32,15 @@ const styles = {
     color: "#000000",
     fontWeight: 500,
     textDecoration: "none",
+  },
+  logo: {
+    marginRight: "24px",
+    display: "flex",
+    alignItems: "center",
+  },
+  logoImage: {
+    height: "60px", // Adjust size as needed
+    width: "auto",
   },
   container: {
     flex: 1,
@@ -135,11 +145,13 @@ const ReportIssue = () => {
   return (
     <div style={styles.pageWrapper}>
       <nav style={styles.nav}>
+        <a href="/baje" style={styles.logo}>
+          <img src="/isle.png" alt="Isle Logo" style={styles.logoImage} />
+        </a>
         <div style={styles.navItems}>
-          <a href="https://example.com/dashboard" style={styles.navLink}>Dashboard</a>
-          <a href="https://example.com/workbench" style={styles.navLink}>Workbench</a>
-          <a href="https://example.com/report" style={styles.navLinkActive}>Report Issue</a>
-          <a href="https://example.com/help" style={styles.navLink}>Help</a>
+          <a href="/dashboard" style={styles.navLink}>Dashboard</a>
+          <a href="/report" style={styles.navLinkActive}>Report Issue</a>
+          <a href="/settings" style={styles.navLink}>Settings</a>
         </div>
       </nav>
 
