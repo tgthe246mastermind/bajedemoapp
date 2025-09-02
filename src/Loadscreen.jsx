@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import isleImage from '../isle.png';
 
 const styles = {
   mainContainer: {
@@ -70,5 +69,6 @@ const Loadscreen = () => {
     </div>
   );
 };
+
 
 export default Loadscreen;
