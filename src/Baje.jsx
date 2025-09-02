@@ -1,7 +1,8 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect } from 'react'; 
 import axios from 'axios';
 import { v4 as uuidv4 } from 'uuid';
 import { Link, useNavigate } from 'react-router-dom';
+
 import './Baje.css';
 
 function Baje() {
@@ -18,9 +19,8 @@ function Baje() {
   const [isNavOpen, setIsNavOpen] = useState(false);
   const navigate = useNavigate();
 
-  // API URL from env with validation
-  const apiUrlRaw = import.meta.env.VITE_API_URL;
-  const apiUrl = apiUrlRaw?.startsWith('http') ? apiUrlRaw : `https://${apiUrlRaw}`;
+  // API URL from env
+  const apiUrl = import.meta.env.VITE_API_URL;
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -28,17 +28,6 @@ function Baje() {
 
   const handleSendMessage = async () => {
     if (!inputValue.trim() || isLoading) return;
-
-    // Validate API URL
-    if (!apiUrlRaw) {
-      console.error("VITE_API_URL is not defined in environment variables");
-      setMessages(prev => [...prev, {
-        id: uuidv4(),
-        role: 'assistant',
-        content: "Oops, something's gone wrong with the server setup. Please try again later!"
-      }]);
-      return;
-    }
 
     const userMessage = {
       id: uuidv4(),
@@ -57,10 +46,11 @@ function Baje() {
       });
 
       // Strip markdown: remove asterisks, double spaces, etc.
+      // For a basic cleanup, just remove *, **, __, and backticks:
       const cleanContent = response.data.response
         ? response.data.response
             .replace(/(\*\*|\*|__|`)/g, '') // remove markdown symbols
-            .replace(/^\s*[-*]\s+/gm, '- ') // convert markdown list markers to simple dashes
+            .replace(/^\s*[-*]\s+/gm, '- ') // convert markdown list markers to simple dashes with spaces
         : "Sorry, I couldn't process that request.";
 
       const aiMessage = {
@@ -70,11 +60,7 @@ function Baje() {
       };
       setMessages(prev => [...prev, aiMessage]);
     } catch (error) {
-      console.error('API Error:', {
-        message: error.message,
-        status: error.response?.status,
-        data: error.response?.data
-      });
+      console.error('API Error:', error);
       setMessages(prev => [...prev, {
         id: uuidv4(),
         role: 'assistant',
@@ -136,12 +122,25 @@ function Baje() {
                   width: '20px',
                   height: '20px',
                   borderRadius: '50%',
-                  background: 'ur[](https://upload.wikimedia.org/wikipedia/commons/thumb/e/ef/Flag_of_Barbados.svg/1200px-Flag_of_Barbados.svg.png) center/cover',
+                  background: 'url(https://upload.wikimedia.org/wikipedia/commons/thumb/e/ef/Flag_of_Barbados.svg/1200px-Flag_of_Barbados.svg.png) center/cover',
                   marginLeft: '10px'
                 }}
               />
             </div>
           </div>
+        </div>
+        <div className="header-buttons">
+          <button className="notification-button" onClick={() => navigate('/notifications')}>
+            🔔
+          </button>
+          <button
+            className={`hamburger-button ${isNavOpen ? 'active' : ''}`}
+            onClick={toggleNav}
+          >
+            <span className="hamburger-button-span"></span>
+            <span className="hamburger-button-span"></span>
+            <span className="hamburger-button-span"></span>
+          </button>
         </div>
       </div>
 
@@ -169,7 +168,7 @@ function Baje() {
           <div
             key={msg.id}
             className={`message ${msg.role === 'user' ? 'user-message' : 'assistant-message'}`}
-            style={{ whiteSpace: 'pre-wrap' }}
+            style={{ whiteSpace: 'pre-wrap' }} // preserve line breaks
           >
             {msg.content}
           </div>
@@ -215,7 +214,7 @@ function Baje() {
         </button>
       </div>
 
-      <style>{`
+       <style>{`
         @keyframes bounce {
           0%, 80%, 100% { transform: translateY(0); }
           40% { transform: translateY(-6px); }
@@ -337,3 +336,5 @@ function Baje() {
 }
 
 export default Baje;
+
+
