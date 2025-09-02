@@ -114,7 +114,7 @@ const Onboarding = () => {
       }
 
       localStorage.setItem('isFirstTime', 'true');
-      navigate('/baje');
+      navigate('/loadscreen');
     } catch (error) {
       setError(error.message || 'Failed to skip onboarding');
     } finally {
