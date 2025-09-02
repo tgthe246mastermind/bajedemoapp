@@ -19,8 +19,10 @@ function Baje() {
   const [isNavOpen, setIsNavOpen] = useState(false);
   const navigate = useNavigate();
 
-  // API URL from env
-  const apiUrl = import.meta.env.VITE_API_URL;
+  // API URL from env with protocol fix
+  const apiUrl = import.meta.env.VITE_API_URL.startsWith("http")
+    ? import.meta.env.VITE_API_URL
+    : `https://${import.meta.env.VITE_API_URL}`;
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -336,5 +338,3 @@ function Baje() {
 }
 
 export default Baje;
-
-
