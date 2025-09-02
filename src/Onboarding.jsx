@@ -85,7 +85,7 @@ const Onboarding = () => {
 
         setSuccess('Profile updated successfully!');
         localStorage.setItem('isFirstTime', 'true');
-        navigate('/baje');
+        navigate('/loadscreen');
       } catch (error) {
         setError(error.message || 'Failed to save profile');
       } finally {
