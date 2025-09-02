@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import isleImage from '../isle.png';
 
 const styles = {
   mainContainer: {
@@ -41,27 +40,18 @@ const Home = () => {
           100% { opacity: 0; }
         }
         @keyframes heartbeat {
-          0%, 100% {
-            transform: scale(1);
-          }
-          25% {
-            transform: scale(1.15);
-          }
-          40% {
-            transform: scale(1);
-          }
-          60% {
-            transform: scale(1.1);
-          }
-          80% {
-            transform: scale(1);
-          }
+          0%, 100% { transform: scale(1); }
+          25% { transform: scale(1.15); }
+          40% { transform: scale(1); }
+          60% { transform: scale(1.1); }
+          80% { transform: scale(1); }
         }
         img {
           animation: heartbeat 1.5s ease-in-out infinite;
         }
       `}</style>
-      <img src={isleImage} alt="Isle" style={styles.image} />
+      {/* Use image from public/ */}
+      <img src="/isle.png" alt="Isle" style={styles.image} />
     </div>
   );
 };
