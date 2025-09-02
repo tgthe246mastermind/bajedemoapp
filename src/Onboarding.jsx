@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { createClient } from '@supabase/supabase-js';
-import isleImage from '../isle4.png';
 
 const supabase = createClient(
   'https://lgurtucciqvwgjaphdqp.supabase.co',
@@ -116,7 +115,8 @@ const Onboarding = () => {
     <div className="mainContainer">
       <div className="onboardingHeader">
         <div className="logoContainer">
-          <img src={isleImage} alt="Isle" className="logoImage" />
+          {/* Use image from public folder */}
+          <img src="/isle4.png" alt="Isle" className="logoImage" />
         </div>
       </div>
 
