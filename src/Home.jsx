@@ -13,19 +13,36 @@ const styles = {
     fontFamily: "Jost, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Ubuntu, 'Helvetica Neue', Helvetica, Arial, sans-serif",
     animation: 'fadeInOut 5s ease-in-out forwards'
   },
+  spinnerContainer: {
+    height: '190px',
+    width: '190px',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    position: 'relative'
+  },
+  spinner: {
+    height: '190px',
+    width: '190px',
+    border: '6px solid',
+    borderColor: '#005A9C transparent #005A9C transparent', // Dodger blue
+    borderRadius: '50%',
+    animation: 'spin 1.3s linear infinite',
+    position: 'absolute'
+  },
   image: {
     maxWidth: '100%',
-    height: '70%',
+    height: '150%',
     objectFit: 'contain',
   }
 };
 
-const Home = () => {
+const Loadscreen = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      navigate('/login');
+      navigate('/baje');
     }, 5000);
     return () => clearTimeout(timer);
   }, [navigate]);
@@ -39,21 +56,17 @@ const Home = () => {
           90% { opacity: 1; }
           100% { opacity: 0; }
         }
-        @keyframes heartbeat {
-          0%, 100% { transform: scale(1); }
-          25% { transform: scale(1.15); }
-          40% { transform: scale(1); }
-          60% { transform: scale(1.1); }
-          80% { transform: scale(1); }
-        }
-        img {
-          animation: heartbeat 1.5s ease-in-out infinite;
+        @keyframes spin {
+          to { transform: rotate(360deg); }
         }
       `}</style>
-      {/* Use image from public/ */}
-      <img src="/isle.png" alt="Isle" style={styles.image} />
+      <div style={styles.spinnerContainer}>
+        <div style={styles.spinner}></div>
+        {/* Reference image from public folder */}
+        <img src="/isle.png" alt="Isle" style={styles.image} />
+      </div>
     </div>
   );
 };
 
-export default Home;
+export default Loadscreen;
