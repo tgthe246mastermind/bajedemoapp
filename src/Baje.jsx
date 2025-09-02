@@ -131,19 +131,7 @@ function Baje() {
             </div>
           </div>
         </div>
-        <div className="header-buttons">
-          <button className="notification-button" onClick={() => navigate('/notifications')}>
-            🔔
-          </button>
-          <button
-            className={`hamburger-button ${isNavOpen ? 'active' : ''}`}
-            onClick={toggleNav}
-          >
-            <span className="hamburger-button-span"></span>
-            <span className="hamburger-button-span"></span>
-            <span className="hamburger-button-span"></span>
-          </button>
-        </div>
+
       </div>
 
       <div className={`nav-overlay ${isNavOpen ? 'active' : ''}`}>
@@ -313,9 +301,7 @@ function Baje() {
           .chat-header {
             padding: 10px;
           }
-          .hamburger-button {
-            margin-left: auto;
-          }
+          
           .nav-card {
             width: 100%;
             max-width: 450px;
