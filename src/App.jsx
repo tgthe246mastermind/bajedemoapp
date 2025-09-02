@@ -1,5 +1,5 @@
 import { Routes, Route, useNavigate } from 'react-router-dom';
-import Signup1 from './Signup1.jsx';
+import Signup1 from './SignUp1.jsx';
 import Baje from './Baje.jsx';
 import Login from './Login.jsx';
 import Home from './Home.jsx';
