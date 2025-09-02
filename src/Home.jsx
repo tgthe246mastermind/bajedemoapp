@@ -60,9 +60,10 @@ const Home = () => {
           animation: heartbeat 1.5s ease-in-out infinite;
         }
       `}</style>
-      <img src="/isle4.png" alt="Isle" className="logoImage" style={styles.image} />
+      <img src="/isle.png" alt="Isle" className="logoImage" style={styles.image} />
     </div>
   );
 };
 
 export default Home;
+
