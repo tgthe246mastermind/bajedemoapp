@@ -1,13 +1,13 @@
-import React, { useState } from 'react'; 
+import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { createClient } from '@supabase/supabase-js';
 
-const supabase = createClient(
-  'https://lgurtucciqvwgjaphdqp.supabase.co',
-  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImxndXJ0dWNjaXF2d2dqYXBoZHFwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Mjk2MzgzNTAsImV4cCI6MjA0NTIxNDM1MH0.I1ajlHp5b4pGL-NQzzvcVdznoiyIvps49Ws5GZHSXzk'
-);
+// --- Supabase client setup (inline instead of src/supabaseClient.js) ---
+const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
+const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
+export const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
-const Signup1 = () => {
+const SignUp1 = () => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     email: '',
@@ -35,22 +35,20 @@ const Signup1 = () => {
 
     setIsLoading(true);
     try {
-      const { data, error } = await supabase.auth.signUp({
+      const { error } = await supabase.auth.signUp({
         email,
         password,
         options: {
-          data: { 
-            username, 
+          data: {
+            username,
             display_name: username,
-            isFirstTimeUser: true
+            isFirstTimeUser: true,
           },
-          redirectTo: `${window.location.origin}/login`,
+          redirectTo: `${import.meta.env.VITE_SITE_URL}/login`,
         },
       });
 
-      if (error) {
-        throw error;
-      }
+      if (error) throw error;
 
       setSuccess('Signup successful! Please check your email to confirm, then log in.');
       setTimeout(() => navigate('/login'), 2000);
@@ -63,114 +61,6 @@ const Signup1 = () => {
 
   return (
     <>
-      <style jsx>{`
-        body {
-          background: var(--bg-gradient);
-          --bg-gradient: linear-gradient(135deg, #000000, #1E90FF);
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          min-height: 100vh;
-        }
-        .mainContainer {
-          position: relative;
-          width: 700px;
-          height: 840px;
-          margin: 0 auto;
-          background: #121212;
-          overflow: hidden;
-          border-radius: 8px;
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          color: white;
-          font-family: Jost, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Ubuntu, 'Helvetica Neue', Helvetica, Arial, sans-serif;
-        }
-        .signupHeader {
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          width: 100%;
-          padding: 20px 30px;
-          margin-bottom: 5px;
-        }
-        .logoContainer {
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          height: 20vh;
-          margin-bottom: -30px;
-        }
-        .logoImage {
-          max-width: 100%;
-          height: 70%;
-        }
-        .signupForm {
-          width: 80%;
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          margin-top: 5px;
-        }
-        .inputGroup {
-          width: 100%;
-          margin-bottom: 20px;
-        }
-        .inputGroupLabel {
-          display: block;
-          margin-bottom: 10px;
-          color: #a0a0a0;
-        }
-        .inputGroupInput {
-          width: 100%;
-          height: 50px;
-          background: #1e1e1e;
-          border: 1px solid #303139;
-          border-radius: 10px;
-          color: white;
-          padding: 0 15px;
-          font-size: 16px;
-        }
-        .signupButton {
-          width: 100%;
-          height: 50px;
-          background: #5db075;
-          border: none;
-          border-radius: 10px;
-          color: white;
-          font-size: 18px;
-          font-weight: 700;
-          cursor: pointer;
-          transition: background 0.3s ease;
-          margin-bottom: 10px;
-          margin-left: 20px;
-        }
-        .signupButtonDisabled {
-          opacity: 0.6;
-          cursor: not-allowed;
-        }
-        .loginLink {
-          margin-top: 20px;
-          color: #a0a0a0;
-        }
-        .loginLinkA {
-          color: #5db075;
-          text-decoration: none;
-          margin-left: 5px;
-        }
-        .errorMessage {
-          color: #ff4d4d;
-          margin-bottom: 20px;
-          font-size: 14px;
-          text-align: center;
-        }
-        .successMessage {
-          color: lightgreen;
-          margin-bottom: 20px;
-          font-size: 14px;
-          text-align: center;
-        }
-      `}</style>
       <div className="mainContainer">
         <div className="signupHeader">
           <div className="logoContainer">
@@ -249,4 +139,4 @@ const Signup1 = () => {
   );
 };
 
-export default Signup1;
+export default SignUp1;
