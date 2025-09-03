@@ -2,12 +2,13 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { createClient } from '@supabase/supabase-js';
 
-// --- Supabase client setup (inline instead of src/supabaseClient.js) ---
-const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
-const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
-export const supabase = createClient(supabaseUrl, supabaseAnonKey);
+// Supabase client via environment variables
+const supabase = createClient(
+  import.meta.env.VITE_SUPABASE_URL,
+  import.meta.env.VITE_SUPABASE_ANON_KEY
+);
 
-const SignUp1 = () => {
+const Signup1 = () => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     email: '',
@@ -61,6 +62,115 @@ const SignUp1 = () => {
 
   return (
     <>
+      <style jsx>{`
+        body {
+          background: var(--bg-gradient);
+          --bg-gradient: linear-gradient(135deg, #000000, #1E90FF);
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          min-height: 100vh;
+        }
+        .mainContainer {
+          position: relative;
+          width: 700px;
+          height: 840px;
+          margin: 0 auto;
+          background: #121212;
+          overflow: hidden;
+          border-radius: 8px;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          color: white;
+          font-family: Jost, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Ubuntu, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        }
+        .signupHeader {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          width: 100%;
+          padding: 20px 30px;
+          margin-bottom: 5px;
+        }
+        .logoContainer {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          height: 20vh;
+          margin-bottom: -30px;
+        }
+        .logoImage {
+          max-width: 100%;
+          height: 70%;
+        }
+        .signupForm {
+          width: 80%;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          margin-top: 5px;
+        }
+        .inputGroup {
+          width: 100%;
+          margin-bottom: 20px;
+        }
+        .inputGroupLabel {
+          display: block;
+          margin-bottom: 10px;
+          color: #a0a0a0;
+        }
+        .inputGroupInput {
+          width: 100%;
+          height: 50px;
+          background: #1e1e1e;
+          border: 1px solid #303139;
+          border-radius: 10px;
+          color: white;
+          padding: 0 15px;
+          font-size: 16px;
+        }
+        .signupButton {
+          width: 100%;
+          height: 50px;
+          background: #5db075;
+          border: none;
+          border-radius: 10px;
+          color: white;
+          font-size: 18px;
+          font-weight: 700;
+          cursor: pointer;
+          transition: background 0.3s ease;
+          margin-bottom: 10px;
+          margin-left: 20px;
+        }
+        .signupButtonDisabled {
+          opacity: 0.6;
+          cursor: not-allowed;
+        }
+        .loginLink {
+          margin-top: 20px;
+          color: #a0a0a0;
+        }
+        .loginLinkA {
+          color: #5db075;
+          text-decoration: none;
+          margin-left: 5px;
+        }
+        .errorMessage {
+          color: #ff4d4d;
+          margin-bottom: 20px;
+          font-size: 14px;
+          text-align: center;
+        }
+        .successMessage {
+          color: lightgreen;
+          margin-bottom: 20px;
+          font-size: 14px;
+          text-align: center;
+        }
+      `}</style>
+
       <div className="mainContainer">
         <div className="signupHeader">
           <div className="logoContainer">
@@ -120,8 +230,10 @@ const SignUp1 = () => {
               disabled={isLoading}
             />
           </div>
+
           {error && <div className="errorMessage">{error}</div>}
           {success && <div className="successMessage">{success}</div>}
+
           <button
             type="submit"
             className={isLoading ? "signupButton signupButtonDisabled" : "signupButton"}
@@ -129,6 +241,7 @@ const SignUp1 = () => {
           >
             {isLoading ? 'Signing up...' : 'Sign Up'}
           </button>
+
           <div className="loginLink">
             Already have an account?
             <Link to="/login" className="loginLinkA">Login</Link>
@@ -139,4 +252,4 @@ const SignUp1 = () => {
   );
 };
 
-export default SignUp1;
+export default Signup1;
