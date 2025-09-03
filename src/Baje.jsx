@@ -11,7 +11,7 @@ function Baje() {
     {
       id: uuidv4(),
       role: 'assistant',
-      content: "Welcome to BAJE! I'm your Barbados helper! Ask me about beaches, food, history, festivals."
+      content: "Welcome to ISLE AI! I'm your Barbados helper! Ask me about beaches, food, history, festivals."
     }
   ]);
   const [inputValue, setInputValue] = useState('');
